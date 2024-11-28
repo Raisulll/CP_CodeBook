@@ -1,18 +1,18 @@
-\documentclass[10pt, a4paper]{article}
+\documentclass[10pt, a4paper,twocolumn]{article}
 \usepackage[a4paper, left=1in, right=1in, top=1in, bottom=1in]{geometry}
 \usepackage{graphicx}
 \usepackage{mdframed}
-\usepackage{multicol}
+% \usepackage{multicol}
 \usepackage{listings}
 \usepackage{xcolor} 
 \usepackage{amsmath}
-
-\usepackage{fancyhdr}           
+\usepackage{fancyhdr}      
+\usepackage[hidelinks]{hyperref}     
 \pagestyle{fancy}   
 
 \fancyhf{}
 
-\fancyhead[L]{Military Institute of Science and Technology MIST\_EaglesExpr} 
+\fancyhead[L]{Military Institute of Science and Technology MIST\_CodeCrafters} 
 \fancyhead[R]{\thepage} 
 
 \lstdefinestyle{shared}{
@@ -49,10 +49,6 @@
 \lstdefinestyle{txt}{
     style=shared,
 }
-\lstdefinestyle{vimrc}{
-    stringstyle=\color{gray},
-    breaklines=true, 
-}
 
 \lstset{
 	stringstyle=\color{gray},
@@ -60,28 +56,35 @@
 }
 
 
-\title{CodeBook for Competitive Programming}
-\author{MIST\_EaglesExpr\\[1cm] Syed Mafijul Islam, 202214105\\
-Md. Tanvin Sarkar Pallab, 202214062\\
-Shihab Ahmed, 202314049
-}
 
 \setlength{\columnsep}{20pt} 
 \setlength{\columnseprule}{0.1pt} 
-
-\usepackage[hidelinks]{hyperref}
 \begin{document}
-\maketitle
-\thispagestyle{empty}
-
-\begin{multicols}{2}
-
+\newpage
 \tableofcontents
 \newpage
 
+%\begin{multicols}{2}
 
 \section{Useful Tips}
 \begin{description}
+    \subsection{Run with key in VS Code}
+    Add the following code in \texttt{keybindings.json} file in VS Code, to run onpen git bash terminal, in.txt and out.txt file and press \texttt{f5} to run the code.
+    \begin{lstlisting}[style=txt]
+    {
+      "key": "f5",
+      "command": "workbench.action.terminal.sendSequence",
+      "args": {
+        "text": "g++ ${fileBasenameNoExtension}.cpp -o ${fileBasenameNoExtension} && ./${fileBasenameNoExtension} < in.txt > out.txt\n"
+      }
+    }
+    % now i want to add comment to 
+    \end{lstlisting}
+    \item[Run CPP File] \hfill \break
+    \texttt{g++ .\textbackslash test.cpp -o test \&\& .\textbackslash test}
+    \item[Run CPP File with Input File] \hfill \break
+    \texttt{g++ .\textbackslash test.cpp -o test \&\& .\textbackslash test < in.txt > out.txt}
+    % \texttt{g++ .\test.cpp -o test && .\test < in.txt > out.txt}
     \item[Big Integer C++] \_\_int128\_t
     \item[C++ FastIO] \hfill \break
     ios::sync\_with\_stdio(false);
@@ -98,8 +101,6 @@ bitset<size>(val).to_string();
     freopen("input.txt", "r", stdin);
     \item[Python Array Input] \hfill \break
     list(map(int, input().split()))
-    \item [Vim Setup] \hfill
-    \lstinputlisting[style=vimrc]{.vimrc}
 \end{description}
 
 \section{Formula}
@@ -227,7 +228,52 @@ bitset<size>(val).to_string();
     \item \(1+2+3+...+n=\frac{n(n+1)}{2}\)
     \item \(1^2+2^2+3^2+...+n^2=\frac{n(n+1)(2n+1)}{6}\)
     \item \(1^3+2^3+3^3+...+n^3=(\frac{n(n+1)}{2})^2\)
+    \item \(1^4+2^4+3^4+...+n^4=\frac{n(n+1)(2n+1)(3n^2+3n-1)}{30}\)
+
+    % \item [Sum of first n odd numbers] \(n^2\)
 \end{itemize}
+    {    Sum of first n odd numbers} \(n^2\)
+\subsection{Logarithmic Basics}
+\begin{itemize}
+    \item \(\log_b 1 = 0\)
+    \item \(\log_b b = 1\)
+    \item \(\log_b (AB) = \log_b A + \log_b B\)
+    \item \(\log_b \left(\frac{A}{B}\right) = \log_b A - \log_b B\)
+    \item \(\log_b A^x = x \log_b A\)
+    \item \(\log_a c = \log_a b \cdot \log_b c\)
+    \item \(b^{\log_b a} = a\)
+    \item \(x \log_b y = y \log_b x\)
+    \item \(\log_a b = \frac{1}{\log_b a}\)
+    \item \(\log_a x = \frac{\log_b x}{\log_b a}\)
+\end{itemize}
+
+\subsection{Series}
+
+\subsubsection{Catalan Series} 
+Series: \(1, 1, 2, 5, 14, 42, 132, 429, \dots\) \\
+Equation: \(C_n = \sum_{k=0}^{n-1} C_k \cdot C_{n-1-k}\)
+
+\subsubsection{Arithmetic Series} 
+\(a_n = a + (n - 1) \cdot d\) \\
+\(S_n = \frac{n}{2} \cdot (2a + (n - 1) \cdot d)\)
+
+\subsubsection{Geometric Series} 
+\(a_n = a \cdot r^{n-1}\) \\
+\(S_n = \frac{a(1 - r^n)}{1 - r} \quad \text{for} \quad r \neq 1\)
+
+\subsubsection{Derangement Series} 
+% Series: \(0, 1, 2, 9, 44, 265, 1854, 14833, 133496, 1334961, 14684570, \dots\) \\ make this line in two line
+Series: \(0, 1, 2, 9, 44, 265, 1854, 14833, 133496,\) \\
+\(1334961, 14684570, \dots\) \\
+\(D_n = (n - 1)D_{n - 2} + (n - 1)D_{n - 1}\)
+
+\subsubsection{nth Fibonacci Golden Ratio} 
+\[
+f_n = \frac{\left( \left( \frac{1 + \sqrt{5}}{2} \right)^n - \left( \frac{1 - \sqrt{5}}{2} \right)^n \right)}{\sqrt{5}}
+\]
+
+
+
 
 \subsection{Miscellaneous}
 \begin{itemize}
@@ -249,24 +295,10 @@ bitset<size>(val).to_string();
     \item \(
         logn! = log1 +log2+...+logn
     \)
-    \item \(
-    	gcd(a, b) = gcd(a-b, b)
-    \)
     \item Number of occurrence of a prime number $p$ in $n!$ is \(
     	\lfloor \frac{n}{p} \rfloor +	
     	\lfloor \frac{n}{p^2} \rfloor + 
     	\lfloor \frac{n}{p^3} \rfloor + ... + 0
-    \)
-    \item Formula of Catalan number is \(
-    	\begin{pmatrix}
-    		2n\\
-    		n
-    	\end{pmatrix}
-    	 -
-    	\begin{pmatrix}
-    		2n\\
-    		n - 1
-    	\end{pmatrix}
     \)
     \item Number of divisors of $p^xq^y$ where $p$ and $q$ are prime is \(
     	(x + 1) * (y + 1)
@@ -274,26 +306,20 @@ bitset<size>(val).to_string();
     \item Sum of divisors of $p^xq^y$ where $p$ and $q$ are prime is \(
     	(1 + p + p^2 + ... + p^x) (1 + q + q^2 + ... + q^y)
     \)
-    \item Divisibility rules for a number
-    \begin{description}
-	   	\item[3] The sum of its digits is divisible by $3$.
-	   	\item[4] Last two digits form a number that is divisible by $4$.
-	   	\item[5] The number ends in $0$ or $5$.
-	   	\item[6] Divisible by both $2$ and $3$.
-	   	\item[7] A rule for $7$ is to double the last digit, subtract it from the rest of the number, and check if the result is divisible by $7$. Repeat if necessary.
-	   	\item[8]  Last three digits form a number divisible by $8$.
-	   	\item[9] Sum of its digits is divisible by $9$
-	   	\item[11] Difference between the sum of digits of odd places and even places is divisible by $11$.
-   \end{description}
-   \item Derangement Number\\
-   $n$ person put their hat in a boy. How many way they can collect hat such that no one get their own hat - 
-   \(D_n = (n - 1)D_{n - 2} + (n - 1)D_{n - 1}\)
    \item Golden Ratio \(
-   	\Phi = (\frac{1 + \sqrt{5}}{2}) \approx 1.618034 
+   	\Phi \approx 1.618034
    \)
    \item $n$th Fibonacci number \(
    	F_n = \frac{\Phi n - ( 1 - \Phi)n} {\sqrt{5}}
    \)
+   \item \(n(A \cup B) = n(A) + n(B) - n(A \cap B)\)
+   \item If \(A \cap B = \emptyset\), then \(n(A \cup B) = n(A) + n(B)\)
+   \item \(n(A - B) + n(A \cap B) = n(A)\)
+   \item \(n(B - A) + n(A \cap B) = n(B)\)
+   \item \(n(A \cup B) = n(A - B) + n(A \cap B) + n(B - A)\)
+   \item \(n(A \cup B \cup C) = n(A) + n(B) + n(C) - n(A \cap B) - n(B \cap C) - n(C \cap A) + n(A \cap B \cap C)\)
+   \item Area of a regular polygon: \(\frac{n a^2 \cot\left(\frac{180}{n}\right)}{4}\)
+   \item Apex point angle of a regular polygon: \(\left( \frac{2n - 4}{n} \right) \times 90^\circ\)
 \end{itemize}
 
 \section{Graph Theory}
@@ -329,6 +355,15 @@ All about graph.
 \subsection{Max Flow}
 \lstinputlisting[style=cpp]{code/Graph Theory/MaxFlow.cc}
 
+\subsection{Cycle Detection in Directed Graph}
+\lstinputlisting[style=cpp]{code/Graph Theory/CycleDetection1.cc}
+
+\subsection{Cycle Detection in Undirected Graph}
+\lstinputlisting[style=cpp]{code/Graph Theory/CycleDetection2.cc}
+
+\subsection{Bipartite Graph Check}
+\lstinputlisting[style=cpp]{code/Graph Theory/BipartiteGraphTest.cc}
+
 \section{Data Structures}
 Different Data Structures.
 
@@ -347,13 +382,18 @@ Different Data Structures.
 \subsection{TRIE}
 \lstinputlisting[style=cpp]{code/Data Structures/TRIE.cc}
 
+\subsection{Set Balancing}
+\lstinputlisting[style=cpp]{code/Data Structures/SetBalancing.cc}
+
 \subsection{Ordered Set}
 \lstinputlisting[style=cpp]{code/Data Structures/OrderedSet.cc}
 
 \section{Algorithms}
-All about algorithms.
 
-\subsection{Monotonic Stack (Immediate \allowbreak Large)}
+\subsection{KMP}
+\lstinputlisting[style=cpp]{code/Algorithms/KMP.cc}
+
+\subsection{Monotonic Stack (Immediate \allowbreak Small)}
 \lstinputlisting[style=cpp]{code/Algorithms/MonotonicStack_ImmediateSmall.cc}
 
 \subsection{Kadane’s Algorithm}
@@ -362,36 +402,78 @@ All about algorithms.
 \subsection{2D Prefix Sum}
 \lstinputlisting[style=cpp]{code/Algorithms/2DPrefixSum.cc}
 
-\subsection{2D Convex Hull}
-\lstinputlisting[style=cpp]{code/Algorithms/2DConvexHull.cc}
+\subsection{Next Greater Element}
+\lstinputlisting[style=cpp]{code/Algorithms/NextGreaterElement.cc}
 
 \section{Number Theory}
-All about math.
+\subsection{Prime Numbers Under 1000}
 
+The prime numbers under 1000 are:
+
+\begin{itemize}
+    \item 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 
+    101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 
+    211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 
+    337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 
+    461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 
+    661, 673, 677, 683, 691, 701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821,
+    823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 
+    971, 977, 983, 991, 997
+\end{itemize}
+
+\subsection{Divisibility Rules for Numbers}
+\begin{itemize}
+    \item[3] Sum of digits divisible by $3$.
+    \item[4] Last two digits divisible by $4$.
+    \item[5] Ends in $0$ or $5$.
+    \item[6] Divisible by both $2$ and $3$.
+    \item[7] Double the last digit, subtract it from the rest; check if the result is divisible by $7$. Repeat if necessary.
+    \item[8] Last three digits divisible by $8$.
+    \item[9] Sum of digits divisible by $9$.
+    \item[11] Difference between sums of digits in odd and even places divisible by $11$.
+\end{itemize}
+
+
+\subsection{Divisor Count}
+\lstinputlisting[style=cpp]{code/Number Theory And Maths/DivisorCount.cc}
+
+\subsection{Leap Year}
+\lstinputlisting[style=cpp]{code/Number Theory And Maths/LeapYear.cc}
+
+\subsection{Number of Leap Year in Between}
+\lstinputlisting[style=cpp]{code/Number Theory And Maths/NumberOfLeapYearInBetween.cc}
+\subsection{Binary Exponentiation: (a\^ b)}
+\lstinputlisting[style=cpp]{code/Number Theory And Maths/BinaryExponentiation1.cc}
+\subsection{Binary Exponentiation: (a\^ b\^ c)}
+\lstinputlisting[style=cpp]{code/Number Theory And Maths/BinaryExponentiation2.cc}
+\subsection{Power}
+\lstinputlisting[style=cpp]{code/Number Theory And Maths/power.cc}
 \subsection{nCr}
 \lstinputlisting[style=cpp]{code/Number Theory And Maths/nCr.cc}
 
-\subsection{Power} \label{power}
-\lstinputlisting[style=cpp]{code/Number Theory And Maths/Power.cc}
-
+\subsection{Check Prime -O(sqrt(n))}
+\lstinputlisting[style=cpp]{code/Number Theory And Maths/PrimeCheck.cc}
+\subsection{Prime Factorization}
+\lstinputlisting[style=cpp]{code/Number Theory And Maths/PrimeFactorization.cc}
 \subsection{Miller Rabin}
 \lstinputlisting[style=cpp]{code/Number Theory And Maths/MillerRabin.cc}
 
-\subsection{Sieve} \label{sieve}
+\subsection{Sieve}
 \lstinputlisting[style=cpp]{code/Number Theory And Maths/Sieve.cc}
+\subsection{BitSet Sieve}
+\lstinputlisting[style=cpp]{code/Number Theory And Maths/BitSetSieve.cc}
 
-\subsection{Bitset Sieve}
-\lstinputlisting[style=cpp]{code/Number Theory And Maths/BitsetSieve.cc}
+\subsection{Segment Sieve}
+\lstinputlisting[style=cpp]{code/Number Theory And Maths/SegmentSieve.cc}
 
-\subsection{Segmented Sieve}
-Need Sieve() from \ref{sieve}
-\lstinputlisting[style=cpp]{code/Number Theory And Maths/SegmentedSieve.cc}
+\subsection{Nth Prime}
+\lstinputlisting[style=cpp]{code/Number Theory And Maths/NthPrime.cc}
 
 \subsection{Divisors}
 \lstinputlisting[style=cpp]{code/Number Theory And Maths/Divisor.cc}
 
-\subsection{Euler's Totient Phi Function}
-\lstinputlisting[style=cpp]{code/Number Theory And Maths/Phi.cc}
+% \subsection{Euler's Totient Phi Function}
+% \lstinputlisting[style=cpp]{code/Number Theory And Maths/Phi.cc}
 
 \subsection{Log a base b}
 \lstinputlisting[style=cpp]{code/Number Theory And Maths/logab.cc}
@@ -401,9 +483,23 @@ Need Sieve() from \ref{sieve}
 
 \subsection{Primes Upto 1e9}
 \lstinputlisting[style=cpp]{code/Number Theory And Maths/SieveUpto10e9.cc}
+\subsection{Extd GCD}
+\lstinputlisting[style=cpp]{code/Number Theory And Maths/extd_gcd.cc}
 
-\subsection{Matrix Multiplication}
-\lstinputlisting[style=cpp]{code/Number Theory And Maths/MatrixMultiplication.cc}
+\subsection{Factorial Mod}
+\lstinputlisting[style=cpp]{code/Number Theory And Maths/Factorial_Mod.cc}
+\subsection{Modular Operations}
+\lstinputlisting[style=cpp]{code/Number Theory And Maths/Modular_operation.cc}
+
+\subsection{10 base to M base conversion}
+\lstinputlisting[style=cpp]{code/Number Theory And Maths/10BaseToMBase.cc}
+
+\subsection{M base to 10 base conversion}
+\lstinputlisting[style=cpp]{code/Number Theory And Maths/Mto10Base.cc}
+
+\subsection{Matrix Exponentiation}
+\lstinputlisting[style=cpp]{code/Number Theory And Maths/MatrixExponential.cc}
+
 
 
 \section{Dynamic Programming}
@@ -416,21 +512,23 @@ Need Sieve() from \ref{sieve}
 \subsection{SOS (Sum \allowbreak Of Subsets)}
 \lstinputlisting[style=cpp]{code/Dynamic Programming/SOS.cc}
 
-\subsection{MCM (Matrix \allowbreak Chain Multiplication)}
-\lstinputlisting[style=cpp]{code/Dynamic Programming/MCM.cc}
-
 
 \section{Strings}
-
-\subsection{KMP}
-\lstinputlisting[style=cpp]{code/Algorithms/KMP.cc}
-
 \subsection{Double Hashing}
 Need power() from \ref{power}
 \lstinputlisting[style=cpp]{code/Strings/hashing.cc}
 
-\subsection{Manacher's Algorithm}
-\lstinputlisting[style=cpp]{code/Strings/manacher.cc}
+\subsection{Large Number Multiplication}
+\lstinputlisting[style=cpp]{code/Strings/MultiplyLargeNumber.cc}
+
+\subsection{Large Number Summation}
+\lstinputlisting[style=cpp]{code/Strings/SumofLargeNumber.cc}
+
+\subsection{Large Number Division}
+\lstinputlisting[style=cpp]{code/Strings/DivisionLargeNumber.cc}
+
+\subsection{Large Number Subtraction}
+\lstinputlisting[style=cpp]{code/Strings/SubtractionLargeNumber.cc}
 
 \section{Stress Testing}
 \subsection{Bash Stress File}
@@ -439,5 +537,16 @@ Need power() from \ref{power}
 \subsection{C++ Generator File}
 \lstinputlisting[style=cpp]{code/Stress Test/gen.cc}
 
-\end{multicols}
+\section{Game Theory}
+\subsection{Nim Game}
+The current player has a winning strategy if and only if the xor-sum of the pile sizes is non-zero.
+\subsection{Miser Nim}
+-Last player to remove stones loses.
+-Winning state if xor-sum of pile sizes is non-zero.
+-Exception: Each pile has one stone only.
+-Winning strategy: If there is only one pile of size greater than one,take all or all but one from that pile leaving an odd number one-size piles. Otherwise, same as normal nim.
+\subsection{Grundy Game}
+\lstinputlisting[style=cpp]{code/Game Theory/GrundysGame.cc}
+
+%\end{multicols}
 \end{document}

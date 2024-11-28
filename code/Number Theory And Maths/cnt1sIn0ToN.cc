@@ -1,4 +1,5 @@
 int cntOnes(int n) {
+  // count number of 1s till n
   int cnt = 0;
   for(int i=1;i<=n;i<<=1) {
     int x = (n + 1) / (i << 1);

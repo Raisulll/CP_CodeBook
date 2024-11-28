@@ -1,23 +1,37 @@
-vector<int> prefix_function(string s) {
-    int n = (int)s.length();
-    vector<int> pi(n);
-    for (int i = 1; i < n; i++) {
-        int j = pi[i - 1];
-        while (j > 0 && s[i] != s[j]) j = pi[j - 1];
-        if (s[i] == s[j]) j++;
-        pi[i] = j;
-    }
-    return pi;
-}
-
-vector<int> find_matches(string text, string pat) {
-    int n = pat.length(), m = text.length();
-    string s = pat + "$" + text;
-    vector<int> pi = prefix_function(s), ans;
-    for (int i = n; i <= n + m; i++) {
-        if (pi[i] == n) {
-            ans.push_back(i - 2 * n);
+vector<int> createLPS(string pattern) {
+    int n = pattern.length(), idx = 0;
+    vector<int> lps(n);
+    for (int i = 1; i < n;) {
+        if (pattern[idx] == pattern[i]) {
+            lps[i] = idx + 1;
+            idx++, i++;
+        }
+        else {
+            if (idx != 0)
+                idx = lps[idx - 1];
+            else
+                lps[i] = idx, i++;
         }
     }
-    return ans;
+    return lps;
+}
+int kmp(string text, string pattern) {
+    int cnt_of_match = 0, i = 0, j = 0;
+    vector<int> lps = createLPS(pattern);
+    while (i < text.length()) {
+        if (text[i] == pattern[j])
+            i++, j++;// i->text,j->pattern
+        else {
+            if (j != 0)
+                j = lps[j - 1];
+            else
+                i++;
+        }
+        if (j == pattern.length()) {
+            cnt_of_match++;
+            // the index where match found -> (i - pattern.length());
+            j = lps[j - 1];
+        }
+    }
+    return cnt_of_match;
 }
